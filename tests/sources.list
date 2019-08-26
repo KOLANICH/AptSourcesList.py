@@ -1,0 +1,26 @@
+deb [signed-by=/etc/apt/trusted.gpg.d/ubuntu-keyring-2018-archive.gpg] tor+https://mirrors.kernel.org/ubuntu/ focal main restricted
+# deb-src [signed-by=/etc/apt/trusted.gpg.d/ubuntu-keyring-2018-archive.gpg] tor+https://mirrors.kernel.org/ubuntu/ focal main restricted
+deb [signed-by=/etc/apt/trusted.gpg.d/ubuntu-keyring-2018-archive.gpg] tor+https://mirrors.kernel.org/ubuntu/ focal-updates main restricted
+# deb-src [signed-by=/etc/apt/trusted.gpg.d/ubuntu-keyring-2018-archive.gpg] tor+https://mirrors.kernel.org/ubuntu/ focal-updates main restricted
+deb [signed-by=/etc/apt/trusted.gpg.d/ubuntu-keyring-2018-archive.gpg] tor+https://mirrors.kernel.org/ubuntu/ focal universe
+deb-src [signed-by=/etc/apt/trusted.gpg.d/ubuntu-keyring-2018-archive.gpg] tor+https://mirrors.kernel.org/ubuntu/ focal universe
+deb [signed-by=/etc/apt/trusted.gpg.d/ubuntu-keyring-2018-archive.gpg] tor+https://mirrors.kernel.org/ubuntu/ focal-updates universe
+deb-src [signed-by=/etc/apt/trusted.gpg.d/ubuntu-keyring-2018-archive.gpg] tor+https://mirrors.kernel.org/ubuntu/ focal-updates universe
+deb [signed-by=/etc/apt/trusted.gpg.d/ubuntu-keyring-2018-archive.gpg] tor+https://mirrors.kernel.org/ubuntu/ focal multiverse
+# deb-src http://ru.archive.ubuntu.com/ubuntu/ focal multiverse
+deb [signed-by=/etc/apt/trusted.gpg.d/ubuntu-keyring-2018-archive.gpg] tor+https://mirrors.kernel.org/ubuntu/ focal-updates multiverse
+# deb-src http://ru.archive.ubuntu.com/ubuntu/ focal-updates multiverse
+deb [signed-by=/etc/apt/trusted.gpg.d/ubuntu-keyring-2018-archive.gpg] tor+https://mirrors.kernel.org/ubuntu/ focal-backports main restricted universe multiverse
+#deb-src http://ru.archive.ubuntu.com/ubuntu/ focal-backports main restricted universe multiverse
+deb [signed-by=D43F640145369C51D786DDEA76F1A20FF987672F] tor+https://dl.winehq.org/wine-builds/ubuntu/ focal main
+#   deb-src [signed-by=D43F640145369C51D786DDEA76F1A20FF987672F] tor+https://dl.winehq.org/wine-builds/ubuntu/ focal main
+deb [signed-by=/etc/apt/trusted.gpg.d/ubuntu-keyring-2018-archive.gpg] tor+https://mirrors.kernel.org/ubuntu/ focal-security main restricted
+# deb-src http://security.ubuntu.com/ubuntu/ focal-security main restricted
+deb [signed-by=/etc/apt/trusted.gpg.d/ubuntu-keyring-2018-archive.gpg] tor+https://mirrors.kernel.org/ubuntu/ focal-security universe
+#	 	deb-src http://security.ubuntu.com/ubuntu/ focal-security universe
+deb [signed-by=/etc/apt/trusted.gpg.d/ubuntu-keyring-2018-archive.gpg] tor+https://mirrors.kernel.org/ubuntu/ focal-security multiverse
+# deb-src http://security.ubuntu.com/ubuntu/ focal-security multiverse
+# deb http://archive.canonical.com/ubuntu/ focal partner
+# deb-src http://archive.canonical.com/ubuntu/ focal partner
+deb [signed-by=/etc/apt/trusted.gpg.d/llvm-official.gpg] tor+https://apt.llvm.org/eoan/ llvm-toolchain-eoan main
+deb [signed-by=3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF] tor+https://download.mono-project.com/repo/ubuntu stable-bionic main

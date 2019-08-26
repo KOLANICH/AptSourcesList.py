@@ -1,0 +1,17 @@
+__pycache__
+*.pyc
+*.pyo
+*.pgt
+*.dot
+./AptSourcesList.egg-info
+./build
+./dist
+./.eggs
+/grammars/apt.interp
+/grammars/apt.tokens
+/grammars/aptLexer.*
+/grammars/*.py
+/grammars/*.jar
+/grammars/*.java
+/grammars/*.class
+/grammars/grammar.pgt

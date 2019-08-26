@@ -1,0 +1,27 @@
+{
+	"record": {
+		"commenterROpt": "commented",
+		"TypeR": "rType",
+		"optionsOpt": "options",
+		"uriR": "uri",
+		"wordWithDash": "distribution",
+		"componentsR": "components"
+	},
+	"component": {
+		"wordWithDash": "cId"
+	},
+	"optionsR": {
+		"optionsList": "pairs"
+	},
+	"optionsList": {
+		"optionR": "first_option",
+		"rest_options_with_delF": "rest_options_with_del"
+	},
+	"rest_option_with_delF": {
+		"optionR": "rest_option"
+	},
+	"optionR": {
+		"OptionName": "key",
+		"optionValue": "value"
+	}
+}

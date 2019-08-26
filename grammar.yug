@@ -1,0 +1,259 @@
+id: apt
+chars:
+  - id: WS
+    wellknown: whitespace
+  - id: PunctuationAllowedInOptionValue
+    alt: /.
+  - id: OptionsStart
+    lit: '['
+  - id: OptionsEnd
+    lit: ']'
+  - id: OptionNameValueSeparator
+    lit: '='
+  - id: CommentMarker
+    lit: '#'
+  - id: Plus
+    lit: +
+  - id: Colon
+    lit: ':'
+  - id: OptionsSeparator
+    lit: ','
+  - id: Dash
+    lit: '-'
+  - id: SingleTick
+    lit: "'"
+  - id: DoubleTick
+    lit: '"'
+  - id: WordChar
+    alt:
+      - range: ["a", "z"]
+      - range: ["A", "Z"]
+      - range: ["0", "9"]
+      - lit: _
+  - id: NonWhitespaceNonOptionValueNonSquareRightBracketNonEq
+    alt:
+      - ref: WS
+      - ref: WordChar
+      - ref: PunctuationAllowedInOptionValue
+      - lit: \
+      - ref: OptionsStart
+      - ref: OptionsEnd
+      - ref: CommentMarker
+      - ref: Plus
+      - ref: Colon
+      - ref: OptionNameValueSeparator
+      - ref: OptionsSeparator
+      - ref: Dash
+      - ref: SingleTick
+      - ref: DoubleTick
+    negative: true
+keywords:
+  - id: TypeR
+    alt:
+      - lit: deb
+      - lit: deb-src
+  - id: OptionName
+    alt:
+      - lit: arch
+      - lit: lang
+      - lit: target
+      - lit: pdiffs
+      - lit: by-hash
+      - lit: valid-until-max
+      - lit: allow-downgrade-to-insecure
+      - lit: allow-weak
+      - lit: allow-insecure
+      - lit: trusted
+      - lit: signed-by
+      - lit: check-valid-until
+      - lit: valid-until-min
+      - lit: check-date
+      - lit: inrelease-path
+      - lit: date-max-future
+  - id: CdromSchema
+    lit: 'cdrom:'
+tokens:
+  - id: Word
+    ref: WordChar
+    min: 1
+    prefer: shift
+  - id: WSS
+    ref: WS
+    min: 1
+prods:
+  - id: record
+    seq:
+      - opt:
+          ref: commenterR
+        cap: commented
+      - cap: rType
+        ref: TypeR
+      - ref: WSS
+      - opt:
+          ref: optionsR
+        cap: options
+      - ref: uriR
+        cap: uri
+      - ref: WSS
+      - ref: wordWithDash
+        cap: distribution
+      - ref: componentsR
+        cap: components
+      - opt:
+          ref: WSS
+    
+  - id: wordWithDashSegment
+    alt:
+      - ref: Word
+      - ref: Dash
+    
+  - id: wordWithDash
+    ref: wordWithDashSegment
+    min: 1
+  - id: component
+    seq:
+      - ref: WSS
+      - ref: wordWithDash
+        cap: cId
+    
+  - id: componentsR
+    ref: component
+    min: 1
+    prefer: shift
+  - spacer: 1
+  - id: optionsR
+    seq:
+      - ref: OptionsStart
+        cap: openingBrace
+      - ref: optionsList
+        cap: pairs
+      - ref: OptionsEnd
+        cap: closingBrace
+      - ref: WSS
+    
+  - id: optionsList
+    seq:
+      - ref: optionR
+        cap: firstOption
+      - ref: additionalOptions
+        cap: restOptions
+  - id: additionalOptions
+    ref: additionalOption
+    min: 0
+  - id: additionalOption
+    seq:
+      - ref: OptionsSeparator
+        cap: separator
+      - ref: optionR
+        cap: option
+    
+  - id: optionR
+    seq:
+      - ref: OptionName
+        cap: key
+      - ref: OptionNameValueSeparator
+      - ref: optionValue
+        cap: value
+    
+  - spacer: 1
+  - id: wordWithPlus
+    seq:
+      - ref: Plus
+      - ref: Word
+        cap: word
+    
+  - id: uriSchema
+    seq:
+      - ref: Word
+        cap: word
+      - ref: restSchemaWords
+        cap: restWords
+    
+  - id: restSchemaWords
+    ref: wordWithPlus
+    min: 0
+  - id: genericURI
+    seq:
+      - ref: uriSchema
+        cap: schema
+      - ref: Colon
+      - ref: nonSpaceString
+        cap: restOfURI
+        
+    
+  - spacer: 1
+  - id: uriR
+    alt:
+      - ref: cdromURI
+      - ref: genericURI
+    
+  - spacer: 1
+  - id: commenterR
+    seq:
+      - ref: CommentMarker
+      - ref: WSS
+    
+  - spacer: 1
+  - id: optionValueSegment
+    alt:
+      - ref: Word
+      - ref: PunctuationAllowedInOptionValue
+      - ref: Dash
+      - ref: OptionName
+      - ref: CdromSchema
+      - ref: TypeR
+      - ref: Plus
+      - ref: Colon
+    
+  - id: optionValue
+    ref: optionValueSegment
+    min: 1
+    
+  - id: nonSquareBracketStringSegment
+    alt:
+      - ref: NonWhitespaceNonOptionValueNonSquareRightBracketNonEq
+      - ref: optionValueSegment
+      - ref: OptionNameValueSeparator
+    
+
+  - id: nonSquareBracketString
+    ref: nonSquareBracketStringSegment
+    min: 1
+    
+  - id: nonSpaceStringSegment
+    alt:
+      - ref: nonSquareBracketStringSegment
+      - ref: OptionsEnd
+    
+  - id: nonSpaceString
+    ref: nonSpaceStringSegment
+    min: 1
+    
+  - spacer: 1
+  - id: singleTickEnclosedString
+    seq:
+      - ref: SingleTick
+      - ref: nonSquareBracketString
+      - ref: SingleTick
+
+  - id: doubleTickEnclosedString
+    seq:
+      - ref: DoubleTick
+      - ref: nonSquareBracketString
+      - ref: DoubleTick
+  - id: tickEnclosedString
+    alt:
+      - ref: singleTickEnclosedString
+      - ref: doubleTickEnclosedString
+  - id: enclosedString
+    seq:
+      - ref: OptionsStart
+      - ref: tickEnclosedString
+      - ref: OptionsEnd
+  - id: cdromURI
+    seq:
+      - ref: CdromSchema
+      - ref: Colon
+      - ref: enclosedString
+      - ref: nonSpaceString
+
